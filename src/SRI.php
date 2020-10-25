@@ -45,6 +45,8 @@ class SRI
         $asset_url = $asset;
         if (isset($this->mix[$asset])) {
             $asset_url = $this->mix[$asset];
+        } elseif (isset($this->mix["/$asset"])) {
+            $asset_url = $this->mix["/$asset"];
         }
         if (!in_array(explode('://', strtolower($asset))[0], ['http', 'https'])) {
             $asset_url = \asset($asset);
