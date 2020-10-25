@@ -43,6 +43,9 @@ class SRI
     public function html($asset, $crossorigin = 'anonymous') {
         $ext = pathinfo($asset, PATHINFO_EXTENSION);
         $asset_url = $asset;
+        if (isset($this->mix[$asset])) {
+            $asset_url = $this->mix[$asset];
+        }
         if (!in_array(explode('://', strtolower($asset))[0], ['http', 'https'])) {
             $asset_url = \asset($asset);
         }
