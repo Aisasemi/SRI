@@ -9,7 +9,8 @@ class SRI
     private $filename = '';
     private $mixfilename = '';
     private $algorithm = 'sha512';
-    public function __construct() {
+    public function __construct()
+    {
         $this->filename = \public_path('sri-manifest.json');
         $this->mixfilename = \public_path('mix-manifest.json');
         $this->load();
@@ -23,7 +24,8 @@ class SRI
             $this->mix = \json_decode(\file_get_contents($this->mixfilename), true);
         }
     }
-    public function save() {
+    public function save()
+    {
         \file_put_contents($this->filename, \json_encode($this->sri));
     }
     public function get($asset)
@@ -40,7 +42,8 @@ class SRI
         }
         return null;
     }
-    public function html($asset, $crossorigin = 'anonymous') {
+    public function html($asset, $crossorigin = 'anonymous')
+    {
         $ext = pathinfo($asset, PATHINFO_EXTENSION);
         $asset_url = $asset;
         if (isset($this->mix[$asset])) {
@@ -49,9 +52,9 @@ class SRI
             $asset_url = $this->mix["/$asset"];
         }
         if (!in_array(explode('://', strtolower($asset))[0], ['http', 'https'])) {
-            $asset_url = \asset($asset);
+            $asset_url = \asset($asset_url);
         }
-        switch($ext) {
+        switch ($ext) {
             case 'css':
                 return "<link rel='stylesheet' href='{$asset_url}' integrity='{$this->get($asset)}' crossorigin='{$crossorigin}'>";
                 break;
