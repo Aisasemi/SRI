@@ -31,7 +31,7 @@ class SRI
         if (isset($this->sri[$asset])) {
             return $this->sri[$asset];
         } elseif (isset($this->mix[$asset])) {
-            return $this->get($this->mix[$asset]);
+            return $this->get(explode('?', $this->mix[$asset])[0]);
         } elseif (\file_exists(\public_path($asset)) || in_array(explode('://', strtolower($asset))[0], ['http', 'https'])) {
             $b64_hash = \base64_encode(\hash($this->algorithm, \file_get_contents(\public_path($asset)), true));
             $this->sri[$asset] = "{$this->algorithm}-{$b64_hash}";
